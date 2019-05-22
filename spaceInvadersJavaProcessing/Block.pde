@@ -27,7 +27,7 @@ class Block {
       println("ishootingiguess");
       if (player.xB >= getxPosition() - getRectWidth() / 2 && (player.xB + 4) <= getxPosition() + getRectWidth() / 2 && player.yB<=getyPosition()+getRectHeight()) {
         println("has hit ball");
-
+        player.isShooting = false;
         while (i<1) {
           player.score++; 
           setIsAlive(false);
