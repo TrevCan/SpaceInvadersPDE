@@ -1,40 +1,50 @@
+import ddf.minim.*;
+
+
 class Player {
-  int xP, xB, yB, playerWidth, heightOffGround;
-  boolean isShooting = false;
+  
+  int xPlayer, xBullet, yBullet, playerWidth, heightOffGround, playerSpeed;
+  boolean isShooting = false, isShootingFirst = false;
   int score = 0;
   public Player(int playerWidth) {
-    xP = (int) width / 2;
+    
+    playerSpeed = 5;
+    xPlayer = (int) width / 2;
     this.playerWidth = playerWidth;
     heightOffGround = height - 10 - playerWidth / 2;
   }
 
   void showPlayer() {
     fill(255, 30, 30);
-    rect(xP - playerWidth / 2, heightOffGround, 25, 18);
+    rect(xPlayer - playerWidth / 2, heightOffGround, playerWidth, 18);
   }
 
   void changePlayerPosition() {
+
+    xPlayer = (xPlayer - playerWidth / 2) <= 0 ? 0 + playerWidth : xPlayer;
+    xPlayer = (xPlayer + playerWidth / 2) >= width ? width-playerWidth : xPlayer;
     if (keyPressed && key == CODED) {
-      xP = keyCode == RIGHT ? xP + 5 : xP;
-      xP = keyCode == LEFT ? xP - 5 : xP;
+      xPlayer = keyCode == RIGHT ? xPlayer + playerSpeed : xPlayer;
+      xPlayer = keyCode == LEFT ? xPlayer - playerSpeed : xPlayer;
     }
-    xP = (xP - playerWidth / 2) <= 0 ? 0 + playerWidth : xP;
-    xP = (xP + playerWidth / 2) >= width ? width - playerWidth : xP;
   }
   void shotSomething() {
 
     if (keyPressed && key == ' ' && !isShooting) {
+      isShootingFirst = true;
       isShooting = true;
-      xB = xP;
-      yB = heightOffGround;
+      xBullet = xPlayer;
+      yBullet = heightOffGround;
+
     }
     if (isShooting) {
-
+      
       fill(0, 250, 0);
-      rect(xB, yB, 5, 5);
-      yB -= 10;
-      isShooting = yB <= 0 ? false : true;
+      rect(xBullet, yBullet, 5, 5);
+      yBullet -= 10;
+      isShooting = yBullet <= 0 ? false : true;
     }
+    
   }
 }
 //PLAYER class ENDS

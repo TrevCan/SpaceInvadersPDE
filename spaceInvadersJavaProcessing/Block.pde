@@ -1,17 +1,23 @@
-
+import ddf.minim.*;
 //BLOCK class starts
 class Block {
+  
   int xPosition, yPosition;
   int rectWidth, rectHeight;
   int score = 0;
   int i = 0;
-  boolean isAlive;
+  boolean isAlive, hasBeenShot = false;
+  
   public Block(int xP, int yP, int widthRect, int heightRect) {
+    //shootsM = new Minim(this);
+    //shoots = shootsM.loadSample("C:/Users/Buen Dia/Documents/GitHub/SpaceInvadersPDE/spaceInvadersJavaProcessing/sounds/shooting.wav",512);
     setxPosition(xP);
     setyPosition(yP);
     setRectWidth(widthRect);
     setRectHeight(heightRect);
     setIsAlive(true);
+    
+    
   }  
   void show() {
     fill(0, 0, 255);
@@ -23,20 +29,21 @@ class Block {
      println("player is shooting P:");
      } else{println("nope");}*/
     if (player.isShooting) {
-      println("**************************++");
-      println("ishootingiguess");
-      if (player.xB >= getxPosition() - getRectWidth() / 2 && (player.xB + 4) <= getxPosition() + getRectWidth() / 2 && player.yB<=getyPosition()+getRectHeight()) {
-        println("has hit ball");
+      //println("**************************++");
+      //println("ishootingiguess");
+      if (player.xBullet >= getxPosition() - getRectWidth() / 2 && (player.xBullet + 4) <= getxPosition() + getRectWidth() / 2 && player.yBullet<=getyPosition()+getRectHeight()) {
+        //println("has hit ball");
         player.isShooting = false;
+        hasBeenShot = true;
         while (i<1) {
-          player.score++; 
+          player.score++;
           setIsAlive(false);
           i++;
         }
       }
     } else {
       setI(0);
-      println("not shooting");
+      //println("not shooting");
     }
   }
   
